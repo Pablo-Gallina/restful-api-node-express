@@ -27,5 +27,29 @@ app.get('/api/usuarios', (req, res)=>{
     res.send([{ 'Usuario':'Pablo' },{ 'Usuario':'Daniel'}, { 'Usuario':'Yostin' }])
 })
 
+//Rutas con parámetros (1 parámetro)
+//le indicamos a node que hay un parametro con :
+app.get('/api/usuarios/:id', (req, res)=>{
+    const parametros = req.params.id;
+    res.send(parametros)
+    // /api/usuarios/15
+})
+
+//Rutas con parámetros (varios parametros)
+app.get('/api/usuarios/:edad/:pais', (req, res)=>{
+    const edad = req.params.edad;
+    const pais = req.params.pais;
+    //res.send(edad+ " "+ pais)
+    res.send(req.params);
+    // /api/usuarios/14/guate
+})
+
+//Utilizando query strings
+app.get('/api/query/', (req, res)=>{
+    const queryStrings = req.query;
+    res.send(queryStrings)
+    // /api/query/?var=5
+})
+
 // En que puerto estará escuchando el servidor
 app.listen(port, resListen)
