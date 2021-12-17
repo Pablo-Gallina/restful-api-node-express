@@ -57,6 +57,12 @@ app.post('/api/usuarios', (req, res)=>{
     const autoId = usuarios.length + 1;
     const nombre = req.body.nombre; // al usar el express.json(), este formatea a json el nombre
 
+    // Validacion sencilla de datos recibidos
+    if (!nombre || nombre.length < 3) {
+        res.status(400).send("Ingrese un nombre valido");
+        return;
+    }
+
     const usuario = {
         id: autoId,
         nombre: nombre
