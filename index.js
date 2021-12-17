@@ -70,7 +70,7 @@ app.post('/api/usuarios', (req, res)=>{
         }
     
         usuarios.push(usuario); //Agregando el usuario al array
-        res.send(`El suario fue creado: \n ${JSON.stringify(usuario)}`);
+        res.send(`El usuario fue creado: \n ${JSON.stringify(usuario)}`);
     } else{
         // capturar el mensaje de error
         const mensaje = error.details[0].message;
@@ -101,6 +101,23 @@ app.put('/api/usuarios/:id', (req, res)=>{
     // modificar el dato
     usuario.nombre = value.nombre;
     res.send(usuario);
+})
+
+// **Delete
+app.delete('/api/usuarios/:id', (req, res)=>{
+    const id = req.params.id;
+
+    let usuario = usuarioExiste(id);
+
+    // Si el usuario no exitste, retorname el error 404
+    if (!usuario) res.status(404).send('El usario no fue econtrado o ya ha sido eliminado');
+
+    // Buscar el usuario por su indicie
+    const index = usuarios.indexOf(usuario);
+    // al array de usuarios eliminar el index (solo eliminar 1 registro)
+    usuarios.splice(index, 1);
+
+    res.send(`El usuario fue eliminaro: \n ${JSON.stringify(usuario)}`);
 })
 
 // Validacion si el usuario existe

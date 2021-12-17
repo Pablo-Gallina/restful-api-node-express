@@ -21,3 +21,6 @@ Content-Type: application/json
 {
     "nombre": "David"
 }
+
+### DELETE usuario
+DELETE {{api}}/api/usuarios/2
