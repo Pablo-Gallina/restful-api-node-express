@@ -24,3 +24,6 @@ Content-Type: application/json
 
 ### DELETE usuario
 DELETE {{api}}/api/usuarios/2
+
+### Backup
+GET {{api}}/api/backup

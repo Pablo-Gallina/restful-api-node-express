@@ -1,6 +1,8 @@
 const express = require('express');
 const app = express();
 
+const fs = require('fs');
+
 // Modulo para validacion de datos
 const Joi = require('joi');
 
@@ -120,6 +122,13 @@ app.delete('/api/usuarios/:id', (req, res)=>{
     res.send(`El usuario fue eliminaro: \n ${JSON.stringify(usuario)}`);
 })
 
+// **Generar txt de los usaurios
+//otras rutas
+app.get('/api/backup', (req, res)=>{
+    generarBackup('Backup.txt', JSON.stringify(usuarios));
+    res.send(`Backup generado: \n ${JSON.stringify(usuarios)}`);
+})
+
 // Validacion si el usuario existe
 const usuarioExiste = _id =>{
     return usuarios.find(u => u.id === parseInt(_id));
@@ -139,6 +148,15 @@ const validarNombre = _nombre => {
     // validar el campo nombre
     return schema.validate({ nombre: _nombre });
 }
+const generarBackup = (nombreArchivo, archivo)=>{
+    fs.writeFile(nombreArchivo, archivo, (err) => {
+        if (err) 
+            console.log('Error al crear el archivo.');
+        else
+            console.log('El archivo fue creado con éxito.');
+    });
+}
+
 
 // En que puerto estará escuchando el servidor
 app.listen(port, resListen)
