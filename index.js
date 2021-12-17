@@ -43,7 +43,7 @@ app.get('/api/usuarios', (req, res)=>{
 // **Get
 app.get('/api/usuarios/:id', (req, res)=>{
     const id = req.params.id;
-    let usuario = usuarios.find(u => u.id === parseInt(id));
+    let usuario = usuarioExiste(id);
 
     // Si el usuario no exitste, retorname el error 404
     if (!usuario) res.status(404).send('El usario no fue econtrado')
@@ -60,17 +60,7 @@ app.post('/api/usuarios', (req, res)=>{
     const autoId = usuarios.length + 1;
     const nombre = req.body.nombre; // al usar el express.json(), este formatea a json el nombre
 
-    // Crear un shcema para las validaciones
-    // que sea: string, minimo 3 caracteres, maximo 30 caracteres y que sea requerido (no este en blanco)
-    const schema = Joi.object({
-        nombre: Joi.string()
-            .min(3)
-            .max(30)
-            .required(),
-    });
-
-    // validar el campo nombre
-    const { error, value } = schema.validate({ nombre: nombre });
+    const { error, value } = validarNombre(nombre);
 
     //Si no existe algun error en la validacion
     if (!error) {
@@ -92,23 +82,13 @@ app.post('/api/usuarios', (req, res)=>{
 app.put('/api/usuarios/:id', (req, res)=>{
     const id = req.params.id;
     const nombre = req.body.nombre; // al usar el express.json(), este formatea a json el nombre
-    
-    let usuario = usuarios.find(u => u.id === parseInt(id));
+
+    let usuario = usuarioExiste(id);
 
     // Si el usuario no exitste, retorname el error 404
     if (!usuario) res.status(404).send('El usario no fue econtrado');
 
-    // Crear un shcema para las validaciones
-    // que sea: string, minimo 3 caracteres, maximo 30 caracteres y que sea requerido (no este en blanco)
-    const schema = Joi.object({
-        nombre: Joi.string()
-            .min(3)
-            .max(30)
-            .required(),
-    });
-
-    // validar el campo nombre
-    const { error, value } = schema.validate({ nombre: nombre });
+    const { error, value } = validarNombre(nombre);
 
     //Si existe algun error en la validacion
     if (error) {
@@ -122,6 +102,26 @@ app.put('/api/usuarios/:id', (req, res)=>{
     usuario.nombre = value.nombre;
     res.send(usuario);
 })
+
+// Validacion si el usuario existe
+const usuarioExiste = _id =>{
+    return usuarios.find(u => u.id === parseInt(_id));
+}
+
+// Validacion de los campos del usuario
+const validarNombre = _nombre => {
+    // Crear un shcema para las validaciones
+    // que sea: string, minimo 3 caracteres, maximo 30 caracteres y que sea requerido (no este en blanco)
+    const schema = Joi.object({
+        nombre: Joi.string()
+            .min(3)
+            .max(30)
+            .required(),
+    });
+
+    // validar el campo nombre
+    return schema.validate({ nombre: _nombre });
+}
 
 // En que puerto estará escuchando el servidor
 app.listen(port, resListen)
