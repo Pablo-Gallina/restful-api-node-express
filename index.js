@@ -1,6 +1,9 @@
 const express = require('express');
 const app = express();
 
+// Usar un middleware para dar formato json
+app.use(express.json())
+
 //const port = 3000;
 //variables de entorno
 const port = process.env.PORT || 3000; //En las variables de entorno toma el PORT sino existe el valor será 3000
@@ -46,6 +49,21 @@ app.get('/api/usuarios/:id', (req, res)=>{
     // Si fue encontrado el usuarios, retorname el usuario
     res.send(usuario)
     // /api/usuarios/1
+})
+
+// **Post
+// la ruta es igual a la de get, pero el metodo cambia
+app.post('/api/usuarios', (req, res)=>{
+    const autoId = usuarios.length + 1;
+    const nombre = req.body.nombre; // al usar el express.json(), este formatea a json el nombre
+
+    const usuario = {
+        id: autoId,
+        nombre: nombre
+    }
+
+    usuarios.push(usuario); //Agregando el usuario al array
+    res.send(`El suario fue creado: \n ${JSON.stringify(usuario)}`);
 })
 
 // En que puerto estará escuchando el servidor

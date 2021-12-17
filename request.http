@@ -1,0 +1,8 @@
+### POST usuario
+@api = http://localhost:3000
+POST {{api}}/api/usuarios
+Content-Type: application/json
+
+{
+    "nombre": "David"
+}
