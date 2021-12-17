@@ -1,6 +1,9 @@
 const express = require('express');
 const app = express();
 
+// Modulo para validacion de datos
+const Joi = require('joi');
+
 // Usar un middleware para dar formato json
 app.use(express.json())
 
@@ -57,19 +60,32 @@ app.post('/api/usuarios', (req, res)=>{
     const autoId = usuarios.length + 1;
     const nombre = req.body.nombre; // al usar el express.json(), este formatea a json el nombre
 
-    // Validacion sencilla de datos recibidos
-    if (!nombre || nombre.length < 3) {
-        res.status(400).send("Ingrese un nombre valido");
-        return;
-    }
+    // Crear un shcema para las validaciones
+    // que sea: string, minimo 3 caracteres, maximo 30 caracteres y que sea requerido (no este en blanco)
+    const schema = Joi.object({
+        nombre: Joi.string()
+            .min(3)
+            .max(30)
+            .required(),
+    });
 
-    const usuario = {
-        id: autoId,
-        nombre: nombre
-    }
+    // validar el campo nombre
+    const { error, value } = schema.validate({ nombre: nombre });
 
-    usuarios.push(usuario); //Agregando el usuario al array
-    res.send(`El suario fue creado: \n ${JSON.stringify(usuario)}`);
+    //Si no existe algun error en la validacion
+    if (!error) {
+        const usuario = {
+            id: autoId,
+            nombre: value.nombre
+        }
+    
+        usuarios.push(usuario); //Agregando el usuario al array
+        res.send(`El suario fue creado: \n ${JSON.stringify(usuario)}`);
+    } else{
+        // capturar el mensaje de error
+        const mensaje = error.details[0].message;
+        res.status(400).send(mensaje);
+    }
 })
 
 // En que puerto estará escuchando el servidor
