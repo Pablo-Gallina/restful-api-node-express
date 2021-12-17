@@ -88,5 +88,40 @@ app.post('/api/usuarios', (req, res)=>{
     }
 })
 
+// **Put
+app.put('/api/usuarios/:id', (req, res)=>{
+    const id = req.params.id;
+    const nombre = req.body.nombre; // al usar el express.json(), este formatea a json el nombre
+    
+    let usuario = usuarios.find(u => u.id === parseInt(id));
+
+    // Si el usuario no exitste, retorname el error 404
+    if (!usuario) res.status(404).send('El usario no fue econtrado');
+
+    // Crear un shcema para las validaciones
+    // que sea: string, minimo 3 caracteres, maximo 30 caracteres y que sea requerido (no este en blanco)
+    const schema = Joi.object({
+        nombre: Joi.string()
+            .min(3)
+            .max(30)
+            .required(),
+    });
+
+    // validar el campo nombre
+    const { error, value } = schema.validate({ nombre: nombre });
+
+    //Si existe algun error en la validacion
+    if (error) {
+       // capturar el mensaje de error
+       const mensaje = error.details[0].message;
+       res.status(400).send(mensaje);
+       return;
+    }
+
+    // modificar el dato
+    usuario.nombre = value.nombre;
+    res.send(usuario);
+})
+
 // En que puerto estará escuchando el servidor
 app.listen(port, resListen)
