@@ -83,7 +83,7 @@ app.get('/api/usuarios/:id', (req, res)=>{
     let usuario = usuarioExiste(id);
 
     // Si el usuario no exitste, retorname el error 404
-    if (!usuario) res.status(404).send('El usario no fue econtrado')
+    if (!usuario) res.status(404).send('El usario no fue econtrado :c')
     // /api/usuarios/6
 
     // Si fue encontrado el usuarios, retorname el usuario
