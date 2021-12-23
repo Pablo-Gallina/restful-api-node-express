@@ -1,6 +1,9 @@
 const express = require('express');
 const app = express();
 
+// middlewares de terceros
+const morgan = require('morgan')
+
 // Modulo para validacion de datos
 const Joi = require('joi');
 
@@ -23,6 +26,11 @@ app.use((req, res, next)=>{
     console.log("loading...");
     next(); // para que la funcion middleware llame a la siguiente funcion
 })
+
+// uso de middlewares de terceros
+// Morgan
+app.use(morgan('tiny'));
+console.log('morgan habilitado...');
 
 //const port = 3000;
 //variables de entorno
