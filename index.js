@@ -7,6 +7,13 @@ const Joi = require('joi');
 // Usar un middleware para dar formato json
 app.use(express.json())
 
+// Creando una funcion middleware
+app.use((req, res, next)=>{
+    console.log("loading...");
+    next(); // para que la funcion middleware llame a la siguiente funcion
+    
+})
+
 //const port = 3000;
 //variables de entorno
 const port = process.env.PORT || 3000; //En las variables de entorno toma el PORT sino existe el valor será 3000
