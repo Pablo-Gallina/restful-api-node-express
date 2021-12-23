@@ -38,9 +38,11 @@ console.log('BD server' + config.get('configDB.host'));
 
 
 // uso de middlewares de terceros
-// Morgan
-app.use(morgan('tiny'));
-console.log('morgan habilitado...');
+// Morgan, usar morgan solo en el entorno de desarrollo
+if (app.get('env') === 'development') {
+    app.use(morgan('tiny'));
+    console.log('morgan habilitado...');    
+}
 
 //const port = 3000;
 //variables de entorno
