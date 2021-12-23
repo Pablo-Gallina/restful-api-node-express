@@ -1,6 +1,9 @@
 const express = require('express');
 const app = express();
 
+// Variables de configuracion
+const config = require('config');
+
 // middlewares de terceros
 const morgan = require('morgan')
 
@@ -26,6 +29,13 @@ app.use((req, res, next)=>{
     console.log("loading...");
     next(); // para que la funcion middleware llame a la siguiente funcion
 })
+
+// Configuracion de entornos (config)
+console.log('Aplicacion' + config.get('nombre'));
+console.log('BD server' + config.get('configDB.host'));
+// Cambiar el entorno a produccion
+// en la terminal: export NODE_ENV=production
+
 
 // uso de middlewares de terceros
 // Morgan
