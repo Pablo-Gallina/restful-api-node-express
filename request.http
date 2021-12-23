@@ -24,3 +24,11 @@ Content-Type: application/json
 
 ### DELETE usuario
 DELETE {{api}}/api/usuarios/2
+
+### POST urlencoded
+POST {{api}}/api/usuarios
+Content-Type: application/x-www-form-urlencoded
+
+{
+    "nombre": "David"
+}

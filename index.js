@@ -4,14 +4,24 @@ const app = express();
 // Modulo para validacion de datos
 const Joi = require('joi');
 
+// Mis middlewares
+const logger = require('./middlewares/logger')
+
 // Usar un middleware para dar formato json
 app.use(express.json())
+
+// express urlencoded
+app.use(express.urlencoded({ extended: true }))
+
+// express public (archivos estaticos en el servidor)
+// 'public es el nombre de la carpeta que contendra los archivos estaticos'
+app.use(express.static('public'));
+// Acceder al archivos: http://localhost:3000/imagen.png
 
 // Creando una funcion middleware
 app.use((req, res, next)=>{
     console.log("loading...");
     next(); // para que la funcion middleware llame a la siguiente funcion
-    
 })
 
 //const port = 3000;
