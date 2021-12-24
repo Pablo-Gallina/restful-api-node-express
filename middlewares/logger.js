@@ -3,4 +3,4 @@ function log(req, res, next) {
     next(); // para que la funcion middleware llame a la siguiente funcion
 }
 
-module.exports.log;
+module.exports = log;
