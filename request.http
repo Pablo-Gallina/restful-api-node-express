@@ -1,4 +1,5 @@
 @api = http://localhost:3000
+// https://api-rest-nodejs-express.herokuapp.com/ 
 
 ### GET
 GET {{api}}/api/usuarios
