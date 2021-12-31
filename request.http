@@ -1,0 +1,41 @@
+@api = http://localhost:3000
+// https://api-rest-nodejs-express.herokuapp.com/ 
+
+### --------------------USUARIOS
+### GET
+GET {{api}}/api/usuarios
+
+### GET 1 usuario
+GET {{api}}/api/usuarios/1
+
+### POST usuario
+POST {{api}}/api/usuarios
+Content-Type: application/json
+
+{
+    "nombre": "David"
+}
+
+### PUT usuario
+PUT {{api}}/api/usuarios/1
+Content-Type: application/json
+
+{
+    "nombre": "David"
+}
+
+### DELETE usuario
+DELETE {{api}}/api/usuarios/2
+
+### POST urlencoded
+POST {{api}}/api/usuarios
+Content-Type: application/x-www-form-urlencoded
+
+{
+    "nombre": "David"
+}
+
+
+### ------------------------CURSOS
+### GET
+GET {{api}}/api/cursos
