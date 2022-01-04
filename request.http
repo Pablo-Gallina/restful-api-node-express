@@ -13,7 +13,9 @@ POST {{api}}/api/usuarios
 Content-Type: application/json
 
 {
-    "nombre": "David"
+    "nombre": "Josue",
+    "email": "josue@mail.com",
+    "password": "12457885"
 }
 
 ### PUT usuario

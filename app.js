@@ -13,7 +13,7 @@ const { Schema } = mongoose;
 // Variables de configuracion
 // const config = require('./');
 
-// Middlewares
+// *Middlewares
 // Usar un middleware para dar formato json
 app.use(express.json());
 // express urlencoded
