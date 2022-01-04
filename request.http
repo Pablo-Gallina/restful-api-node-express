@@ -31,5 +31,29 @@ DELETE {{api}}/api/usuarios/{{id}}
 
 
 ### ------------------------CURSOS
-### GET
+### GET curso
 GET {{api}}/api/cursos
+
+### POST curso
+POST {{api}}/api/cursos
+Content-Type: application/json
+
+{
+    "titulo": "JavaScript desde 0",
+    "descripcion": "curso de fontend para aprender js",
+    "imagen": "./curso-js.png"
+}
+
+### PUT curso
+@idCurso = 61d4c531e2b04f703e38e584
+PUT {{api}}/api/cursos/{{idCurso}}
+Content-Type: application/json
+
+{
+    "titulo": "HTML desde 0",
+    "descripcion": "curso de HTML desde 0",
+    "imagen": "./curso-html.png"
+}
+
+### DELETE curso
+DELETE {{api}}/api/cursos/{{idCurso}}
