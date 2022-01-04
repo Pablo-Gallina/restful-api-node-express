@@ -4,16 +4,14 @@ const ruta = express.Router();
 //Modelos
 const Usuarios = require('../models/usuarios_model');
 
-// data
-const usuarios = [
-    { id: 1, nombre: 'Pablo'},
-    { id: 2, nombre: 'Daniel'},
-    { id: 3, nombre: 'Yostin'},
-    { id: 4, nombre: 'Selvin'}
-]
-
 ruta.get('/', (req, res)=>{
-    res.send(usuarios)
+    const usuarios = listarUsuarios();
+
+    usuarios
+        .then( usuarios => {res.json({usuarios: usuarios})})
+        .catch( e => {res.status(400).json({
+            error: e
+        })});
 })
 
 // ****CRUD RUTAS
@@ -27,7 +25,7 @@ ruta.post('/', (req, res)=>{
         .then( usuario => res.json({usuario: usuario}))
         .catch( e => res.status(400).json({
             error: e
-        }))
+        }));
 })
 
 //*****CRUD USUARIOS
@@ -39,7 +37,17 @@ const crearUsuario = async ({email, nombre, password}) =>{
 
     try {
         const res = await usuario.save(); // Guardarlo en mongodb
-        console.log(res); // mostrar resultado   
+        return res;
+    } catch (e) {
+        throw e;
+    }
+}
+
+//?GET
+const listarUsuarios = async ()=>{
+    try {
+        const usuarios = await Usuarios.find()
+        return usuarios;
     } catch (e) {
         throw e;
     }
