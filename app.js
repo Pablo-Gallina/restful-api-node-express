@@ -10,6 +10,9 @@ const mongoose = require('mongoose');
 // Desestrucutrando shema de mongoose
 const { Schema } = mongoose;
 
+// middlewares de terceros
+const morgan = require('morgan')
+
 // Variables de configuracion
 // const config = require('./');
 
@@ -18,6 +21,11 @@ const { Schema } = mongoose;
 app.use(express.json());
 // express urlencoded
 app.use(express.urlencoded({ extended: true }));
+
+// uso de middlewares de terceros
+// Morgan
+app.use(morgan('tiny'));
+console.log('morgan habilitado...');
 
 // *rutas
 app.use('/api/usuarios', usuarios);

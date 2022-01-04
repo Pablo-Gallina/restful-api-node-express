@@ -41,6 +41,18 @@ ruta.put('/:id', (req, res)=>{
         })});
 })
 
+//?DELETE (desactivar usuario)
+ruta.delete('/:id', (req, res)=>{
+    const id = req.params.id;
+    const resultado = desactivarUsuario(id);
+    
+    resultado
+        .then( usuario => {res.json({usuario: usuario})})
+        .catch( e => {res.status(400).json({
+            error: e
+        })});
+})
+
 
 //*****CRUD USUARIOS
 //?POST
@@ -60,7 +72,7 @@ const crearUsuario = async ({email, nombre, password}) =>{
 //?GET
 const listarUsuarios = async ()=>{
     try {
-        const usuarios = await Usuarios.find()
+        const usuarios = await Usuarios.find({estado:true})
         return usuarios;
     } catch (e) {
         throw e;
@@ -75,6 +87,21 @@ const editarUsuario = async (id, {nombre, email, password}) => {
                 nombre,
                 email,
                 password
+            }
+        }, { new:true }); 
+        return res;
+
+    } catch (e) {
+        throw e;
+    }
+}
+
+//?DELETE (desactivar usuario)
+const desactivarUsuario = async id => {
+    try {
+        const res = await Usuarios.findByIdAndUpdate({_id: id},{
+            $set: {
+                estado: false
             }
         }, { new:true }); 
         return res;
