@@ -10,20 +10,20 @@ POST {{api}}/api/usuarios
 Content-Type: application/json
 
 {
-    "nombre": "Yostin",
-    "email": "tocino@mail.com",
-    "password": "12457885"
+    "nombre": "Carol",
+    "email": "carolk@mail.com",
+    "password": "DHKVUm4t2"
 }
 
 ### PUT usuario
-@id = 61d3b09334e305442c5f6c62
+@id = 61d4b929b9e89de5d89dbf4e
 PUT {{api}}/api/usuarios/{{id}}
 Content-Type: application/json
 
 {
-    "nombre": "David",
-    "email": "david@mail.com",
-    "password": "123456"
+    "nombre": "Pedro",
+    "email": "pepedro@mail.com",
+    "password": "DHKVUm4t2"
 }
 
 ### DELETE usuario

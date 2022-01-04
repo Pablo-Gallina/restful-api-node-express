@@ -4,12 +4,22 @@ const ruta = express.Router();
 //Modelos
 const Usuarios = require('../models/usuarios_model');
 
+//Esquemas (schema)
+const schema = require('../schema/usuarios_schema');
+
 // ****CRUD RUTAS
 //?POST
 ruta.post('/', (req, res)=>{
-    const body = req.body; // al usar el express.json(), este formatea a json el nombre
-    const resultado = crearUsuario(body); // Creando el usuario
-    
+    const { nombre, email, password } = req.body; // al usar el express.json(), este formatea a json el nombre
+
+    // Validacion de datos por medio del modulo JOI (esquema)
+    const { error, value } = schema.validate({ nombre, email, password });
+
+    // Si existe algun error, retornar el error
+    if (error) return res.status(404).send(error);
+
+    const resultado = crearUsuario(value); // Creando el usuario
+
     // Verificar si el usuario fue creado
     resultado
         .then( usuario => res.json({usuario: usuario}))
@@ -31,8 +41,15 @@ ruta.get('/', (req, res)=>{
 //?PUT
 ruta.put('/:id', (req, res)=>{
     const id = req.params.id;
-    const body = req.body;
-    const resultado = editarUsuario(id, body);
+    const { nombre, email, password } = req.body;
+
+    // Validacion de datos por medio del modulo JOI (esquema)
+    const { error, value } = schema.validate({ nombre, email, password });
+
+    // Si existe algun error, retornar el error
+    if (error) return res.status(404).send(error);
+
+    const resultado = editarUsuario(id, value);
     
     resultado
         .then( usuario => {res.json({usuario: usuario})})
