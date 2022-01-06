@@ -16,7 +16,7 @@ Content-Type: application/json
 }
 
 ### PUT usuario
-@id = 61d4b929b9e89de5d89dbf4e
+@id = 61d74e45d7a24a7ea86eabde
 PUT {{api}}/api/usuarios/{{id}}
 Content-Type: application/json
 

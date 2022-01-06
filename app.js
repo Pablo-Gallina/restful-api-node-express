@@ -30,6 +30,12 @@ console.log('morgan habilitado...');
 // *rutas
 app.use('/api/usuarios', usuarios);
 app.use('/api/cursos', cursos);
+//Ruta por defecto
+app.get('/', function(req, res) {
+    // tanto req como res, tienen varios metodos disponibles
+    //send (enviar informacion al servidor)
+    res.send('Servidor conectado...');
+});
 
 //const port = 3000;
 //variables de entorno

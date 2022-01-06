@@ -22,7 +22,10 @@ ruta.post('/', (req, res)=>{
 
     // Verificar si el usuario fue creado
     resultado
-        .then( usuario => res.json({usuario: usuario}))
+        .then( usuario => res.json({ 
+            nombre: usuario.nombre,
+            email: usuario.email
+         } ))
         .catch( e => res.status(400).json({
             error: e
         }));
@@ -32,7 +35,7 @@ ruta.get('/', (req, res)=>{
     const usuarios = listarUsuarios();
 
     usuarios
-        .then( usuarios => {res.json({usuarios: usuarios})})
+        .then( usuarios => { res.json({ usuarios }) })
         .catch( e => {res.status(400).json({
             error: e
         })});
@@ -52,7 +55,10 @@ ruta.put('/:id', (req, res)=>{
     const resultado = editarUsuario(id, value);
     
     resultado
-        .then( usuario => {res.json({usuario: usuario})})
+        .then( usuario => {res.json({ 
+            nombre: usuario.nombre,
+            email: usuario.email
+            } )})
         .catch( e => {res.status(400).json({
             error: e
         })});
@@ -64,7 +70,10 @@ ruta.delete('/:id', (req, res)=>{
     const resultado = desactivarUsuario(id);
     
     resultado
-        .then( usuario => {res.json({usuario: usuario})})
+        .then( usuario => {res.json({
+                nombre: usuario.nombre,
+                email: usuario.email
+            } )})
         .catch( e => {res.status(400).json({
             error: e
         })});
@@ -89,7 +98,10 @@ const crearUsuario = async ({email, nombre, password}) =>{
 //?GET
 const listarUsuarios = async ()=>{
     try {
-        const usuarios = await Usuarios.find({estado:true})
+        const usuarios = await Usuarios
+            .find({estado:true})
+            .select({ nombre:1, email: 1 });
+
         return usuarios;
     } catch (e) {
         throw e;
