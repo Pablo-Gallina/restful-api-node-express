@@ -12,6 +12,23 @@ const schema = require('../schema/usuarios_schema');
 ruta.post('/', (req, res)=>{
     const { nombre, email, password } = req.body; // al usar el express.json(), este formatea a json el nombre
 
+    // Validar si el email ya fue registrado
+    Usuarios.findOne({ email }, (err, user)=>{
+        // Porblemas con el servidor
+        if (err) {
+            res.status(400).json({
+                error: 'Server error!'
+            });
+        }
+
+        // Si el usuario con el email ya existe
+        if (user) {
+            res.status(400).json({
+                msj: 'El correo usado ya esta registrado'
+            });
+        }
+    }) 
+
     // Validacion de datos por medio del modulo JOI (esquema)
     const { error, value } = schema.validate({ nombre, email, password });
 
