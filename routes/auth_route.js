@@ -11,6 +11,9 @@ const Usuarios = require('../models/usuarios_model');
 const bcrypt = require('bcrypt');
 const saltRounds = 10;
 
+// JWT
+var jwt = require('jsonwebtoken');
+
 ruta.post('/', (req, res)=>{
     const { email, password } = req.body;
 
@@ -20,8 +23,21 @@ ruta.post('/', (req, res)=>{
                 const passwordValido = bcrypt.compareSync(password, datos.password); // Comparar si el password es correcto (true || false)
                 // Si el password es incorrecto
                 if(!passwordValido) return res.status(400).json({error:'ok', msj:'Usuario o contraseña incorrecta.'})
+                
+                // Creacion del token
+                const jwToken = jwt.sign({
+                    usuario: {_id: datos._id, nombre: datos.nombre, email: datos.email}
+                }, 'secret', { expiresIn: '24h' });
+
                 // Mostrar los datos del usuario logueado
-                res.json(datos)
+                res.json({
+                    usuario:{
+                        _id:datos._id,
+                        nombre:datos.nombre,
+                        email:datos.email
+                    },
+                    jwToken
+                });
             }else{
                 res.status(400).json({
                     error:'ok',
