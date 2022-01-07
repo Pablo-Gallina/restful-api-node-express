@@ -15,7 +15,8 @@ const { Schema } = mongoose;
 const morgan = require('morgan')
 
 // Variables de configuracion
-// const config = require('./');
+const config = require('config');
+// Trabajar en modo desarrollo: en la consola: export NODE_ENV=development
 
 // *Middlewares
 // Usar un middleware para dar formato json
@@ -47,7 +48,7 @@ const port = process.env.PORT || 3000; //En las variables de entorno toma el POR
 
 
 // Si la coleccion no existe, mongodb lo crea
-mongoose.connect('mongodb://localhost:27017/cursos')
+mongoose.connect(config.get("configDB.HOST"))
     .then(() => console.log('Conectado con MongoDB...'))
     .catch( e => console.log('No se puedo conectar con MongoDB... \n', e));
 

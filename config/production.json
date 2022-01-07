@@ -1,0 +1,10 @@
+{
+    "nombre": "api rest mongo & express - desarrollo",
+    "configDB":{
+        
+    },
+    "configToken": {
+        "SEED": "secret",
+        "expiration": "24h"
+    }
+}

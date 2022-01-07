@@ -14,6 +14,10 @@ const saltRounds = 10;
 // JWT
 var jwt = require('jsonwebtoken');
 
+// Variables de configuracion
+const config = require('config');
+
+
 ruta.post('/', (req, res)=>{
     const { email, password } = req.body;
 
@@ -27,7 +31,7 @@ ruta.post('/', (req, res)=>{
                 // Creacion del token
                 const jwToken = jwt.sign({
                     usuario: {_id: datos._id, nombre: datos.nombre, email: datos.email}
-                }, 'secret', { expiresIn: '24h' });
+                }, config.get('configToken.SEED'), { expiresIn: config.get('configToken.expiration') });
 
                 // Mostrar los datos del usuario logueado
                 res.json({
