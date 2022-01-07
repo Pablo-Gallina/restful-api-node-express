@@ -7,9 +7,12 @@ const Cursos = require('../models/cursos_model');
 //Esquemas (schema)
 const schema = require('../schema/cursos_schema');
 
+// Middlewares
+const verificarToken = require('../middlewares/auth_middleware');
+
 // ****CRUD RUTAS
 //?POST
-ruta.post('/', (req, res)=>{
+ruta.post('/', verificarToken, (req, res)=>{
     const { titulo, descripcion, imagen } = req.body;
 
     // Validacion de datos por medio del modulo JOI (esquema)
@@ -29,7 +32,7 @@ ruta.post('/', (req, res)=>{
 })
 
 //?GET
-ruta.get('/', (req, res)=>{
+ruta.get('/', verificarToken, (req, res)=>{
     const curso = listarCursos();
 
     curso
@@ -40,7 +43,7 @@ ruta.get('/', (req, res)=>{
 })
 
 //?PUT
-ruta.put('/:id', (req, res)=>{
+ruta.put('/:id', verificarToken, (req, res)=>{
     const id = req.params.id;
     const { titulo, descripcion, imagen } = req.body;
 
@@ -60,7 +63,7 @@ ruta.put('/:id', (req, res)=>{
 })
 
 //?DELETE (desactivar usuario)
-ruta.delete('/:id', (req, res)=>{
+ruta.delete('/:id', verificarToken, (req, res)=>{
     const id = req.params.id;
     const resultado = desactivarCurso(id);
     

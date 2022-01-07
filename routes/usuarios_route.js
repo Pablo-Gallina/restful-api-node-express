@@ -11,6 +11,9 @@ const schema = require('../schema/usuarios_schema');
 const bcrypt = require('bcrypt');
 const saltRounds = 10;
 
+// Middlewares
+const verificarToken = require('../middlewares/auth_middleware');
+
 // ****CRUD RUTAS
 //?POST
 ruta.post('/', (req, res)=>{
@@ -52,7 +55,7 @@ ruta.post('/', (req, res)=>{
         }));
 })
 //?GET
-ruta.get('/', (req, res)=>{
+ruta.get('/', verificarToken, (req, res)=>{
     const usuarios = listarUsuarios();
 
     usuarios
@@ -63,7 +66,7 @@ ruta.get('/', (req, res)=>{
 })
 
 //?PUT
-ruta.put('/:id', (req, res)=>{
+ruta.put('/:id', verificarToken, (req, res)=>{
     const id = req.params.id;
     const { nombre, email, password } = req.body;
 
@@ -86,7 +89,7 @@ ruta.put('/:id', (req, res)=>{
 })
 
 //?DELETE (desactivar usuario)
-ruta.delete('/:id', (req, res)=>{
+ruta.delete('/:id', verificarToken, (req, res)=>{
     const id = req.params.id;
     const resultado = desactivarUsuario(id);
     
