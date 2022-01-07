@@ -1,6 +1,7 @@
 // Rutas
 const usuarios = require('./routes/usuarios_route');
 const cursos = require('./routes/cursos_route');
+const auth = require('./routes/auth_route');
 
 const express = require('express');
 const app = express();
@@ -30,6 +31,7 @@ console.log('morgan habilitado...');
 // *rutas
 app.use('/api/usuarios', usuarios);
 app.use('/api/cursos', cursos);
+app.use('/api/auth', auth);
 //Ruta por defecto
 app.get('/', function(req, res) {
     // tanto req como res, tienen varios metodos disponibles

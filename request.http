@@ -10,9 +10,9 @@ POST {{api}}/api/usuarios
 Content-Type: application/json
 
 {
-    "nombre": "Carol",
-    "email": "carolk@mail.com",
-    "password": "DHKVUm4t2"
+    "nombre": "Pablo",
+    "email": "pablo@mail.com",
+    "password": "Pablo0705"
 }
 
 ### PUT usuario
@@ -57,3 +57,13 @@ Content-Type: application/json
 
 ### DELETE curso
 DELETE {{api}}/api/cursos/{{idCurso}}
+
+
+### --------------------AUTH de usuarios
+### Autenticacion email pass
+POST {{api}}/api/auth
+Content-Type: application/json
+
+{
+    "email": "pablo@mail.com"
+}

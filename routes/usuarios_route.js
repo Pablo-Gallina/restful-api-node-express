@@ -7,6 +7,10 @@ const Usuarios = require('../models/usuarios_model');
 //Esquemas (schema)
 const schema = require('../schema/usuarios_schema');
 
+// Modulo para encryptar contraseñas
+const bcrypt = require('bcrypt');
+const saltRounds = 10;
+
 // ****CRUD RUTAS
 //?POST
 ruta.post('/', (req, res)=>{
@@ -16,14 +20,14 @@ ruta.post('/', (req, res)=>{
     Usuarios.findOne({ email }, (err, user)=>{
         // Porblemas con el servidor
         if (err) {
-            res.status(400).json({
+            return res.status(400).json({
                 error: 'Server error!'
             });
         }
 
         // Si el usuario con el email ya existe
         if (user) {
-            res.status(400).json({
+            return res.status(400).json({
                 msj: 'El correo usado ya esta registrado'
             });
         }
@@ -102,7 +106,11 @@ ruta.delete('/:id', (req, res)=>{
 //Funcion para guardar dato (body, los datos enviados por el cliente)
 const crearUsuario = async ({email, nombre, password}) =>{
     // Creando el usuario en base al modelo
-    const usuario = new Usuarios({email, nombre, password}) // los demas campos no son requeridos
+    const usuario = new Usuarios({
+        email, 
+        nombre, 
+        password: bcrypt.hashSync(password, saltRounds)
+    }) // los demas campos no son requeridos
 
     try {
         const res = await usuario.save(); // Guardarlo en mongodb
