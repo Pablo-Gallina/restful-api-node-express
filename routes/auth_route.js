@@ -17,7 +17,11 @@ ruta.post('/', (req, res)=>{
     Usuarios.findOne({ email })
         .then(datos => {
             if(datos){
-               res.json(datos)
+                const passwordValido = bcrypt.compareSync(password, datos.password); // Comparar si el password es correcto (true || false)
+                // Si el password es incorrecto
+                if(!passwordValido) return res.status(400).json({error:'ok', msj:'Usuario o contraseña incorrecta.'})
+                // Mostrar los datos del usuario logueado
+                res.json(datos)
             }else{
                 res.status(400).json({
                     error:'ok',
