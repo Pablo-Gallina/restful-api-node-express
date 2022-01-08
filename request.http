@@ -1,9 +1,11 @@
 @api = http://localhost:3000
+@token = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c3VhcmlvIjp7Il9pZCI6IjYxZDc1OGNlMzlkYTA5N2VhZTlkOGY0MyIsIm5vbWJyZSI6IlBhYmxvIiwiZW1haWwiOiJwYWJsb0BtYWlsLmNvbSJ9LCJpYXQiOjE2NDE1OTk4OTksImV4cCI6MTY0MTY4NjI5OX0.ta0TtMEMMqafwEB5Op6l5UpOQRpsXJIC9kwYdtAjMXc
 // https://api-rest-nodejs-express.herokuapp.com/ 
 
 ### --------------------USUARIOS
 ### GET
 GET {{api}}/api/usuarios
+Autorization: {{token}}
 
 ### POST usuario
 POST {{api}}/api/usuarios
@@ -16,9 +18,10 @@ Content-Type: application/json
 }
 
 ### PUT usuario
-@id = 61d758ce39da097eae9d8f43
+@id = 61d8d45ebeaf91fe06f74227
 PUT {{api}}/api/usuarios/{{id}}
 Content-Type: application/json
+Autorization: {{token}}
 
 {
     "nombre": "Pedro",
@@ -28,35 +31,40 @@ Content-Type: application/json
 
 ### DELETE usuario
 DELETE {{api}}/api/usuarios/{{id}}
+Autorization: {{token}}
 
 
 ### ------------------------CURSOS
 ### GET curso
 GET {{api}}/api/cursos
+Autorization: {{token}}
 
 ### POST curso
 POST {{api}}/api/cursos
+Autorization: {{token}}
 Content-Type: application/json
 
 {
-    "titulo": "JavaScript desde 0",
-    "descripcion": "curso de fontend para aprender js",
-    "imagen": "./curso-js.png"
+    "titulo": "React desde 0",
+    "descripcion": "curso de fontend para aprender react",
+    "imagen": "./curso-react.png"
 }
 
 ### PUT curso
-@idCurso = 61d4c531e2b04f703e38e584
+@idCurso = 61d8d4f0beaf91fe06f74233
 PUT {{api}}/api/cursos/{{idCurso}}
+Autorization: {{token}}
 Content-Type: application/json
 
 {
-    "titulo": "HTML desde 0",
-    "descripcion": "curso de HTML desde 0",
-    "imagen": "./curso-html.png"
+    "titulo": "Nodejs desde 0",
+    "descripcion": "curso de nodejs desde 0",
+    "imagen": "./curso-nodejs.png"
 }
 
 ### DELETE curso
 DELETE {{api}}/api/cursos/{{idCurso}}
+Autorization: {{token}}
 
 
 ### --------------------AUTH de usuarios
