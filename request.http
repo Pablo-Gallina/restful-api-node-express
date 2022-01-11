@@ -1,5 +1,5 @@
 @api = http://localhost:3000
-@token = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c3VhcmlvIjp7Il9pZCI6IjYxZDc1OGNlMzlkYTA5N2VhZTlkOGY0MyIsIm5vbWJyZSI6IlBhYmxvIiwiZW1haWwiOiJwYWJsb0BtYWlsLmNvbSJ9LCJpYXQiOjE2NDE1OTk4OTksImV4cCI6MTY0MTY4NjI5OX0.ta0TtMEMMqafwEB5Op6l5UpOQRpsXJIC9kwYdtAjMXc
+@token = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c3VhcmlvIjp7Il9pZCI6IjYxZDhkNDVlYmVhZjkxZmUwNmY3NDIyNyIsIm5vbWJyZSI6IlBhYmxvIiwiZW1haWwiOiJwYWJsb0BtYWlsLmNvbSJ9LCJpYXQiOjE2NDE4NTg0MDUsImV4cCI6MTY0MTk0NDgwNX0.Afa3tRdvGJjFL_-h-Z0s_vjWLnYPlsNvYJfWHZnMu3U
 // https://api-rest-nodejs-express.herokuapp.com/ 
 
 ### --------------------USUARIOS
@@ -45,9 +45,9 @@ Autorization: {{token}}
 Content-Type: application/json
 
 {
-    "titulo": "React desde 0",
-    "descripcion": "curso de fontend para aprender react",
-    "imagen": "./curso-react.png"
+    "titulo": "Git desde 0",
+    "descripcion": "curso para aprender git",
+    "imagen": "./curso-git.png"
 }
 
 ### PUT curso

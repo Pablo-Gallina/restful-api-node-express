@@ -13,6 +13,11 @@ const schema = Joi.object({
         .max(150)
         .required(),
 
+    descripcion: Joi.string()
+        .min(3)
+        .max(150)
+        .required(),
+
     imagen: Joi.string()
         .min(3)
         .max(100)

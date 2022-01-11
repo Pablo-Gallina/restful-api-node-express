@@ -14,6 +14,7 @@ const verificarToken = require('../middlewares/auth_middleware');
 //?POST
 ruta.post('/', verificarToken, (req, res)=>{
     const { titulo, descripcion, imagen } = req.body;
+    const { usuario } = req // Usuario logueado, al usar el middleware verificarToken, este devuelve en el req, la informacion del usuario logueado (decodificado)
 
     // Validacion de datos por medio del modulo JOI (esquema)
     const { error, value } = schema.validate({ titulo, descripcion, imagen });
@@ -21,7 +22,7 @@ ruta.post('/', verificarToken, (req, res)=>{
     // Si existe algun error, retornar el error
     if (error) return res.status(404).send(error);
 
-    const resultado = crearCurso(value); // Creando el curso
+    const resultado = crearCurso(value, usuario); // Creando el curso
 
     // Verificar si el curso fue creado
     resultado
@@ -78,9 +79,9 @@ ruta.delete('/:id', verificarToken, (req, res)=>{
 //*****CRUD USUARIOS
 //?POST
 //Funcion para guardar dato (body, los datos enviados por el cliente)
-const crearCurso = async ({ titulo, descripcion, imagen }) =>{
+const crearCurso = async ({ titulo, descripcion, imagen }, { _id }) =>{
     // Creando el curso en base al modelo
-    const curso = new Cursos({ titulo, descripcion, imagen }) // los demas campos no son requeridos
+    const curso = new Cursos({ titulo, autor: _id, descripcion, imagen }) // los demas campos no son requeridos
 
     try {
         const res = await curso.save(); // Guardarlo en mongodb
