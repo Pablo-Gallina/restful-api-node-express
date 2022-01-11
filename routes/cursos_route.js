@@ -94,7 +94,10 @@ const crearCurso = async ({ titulo, descripcion, imagen }, { _id }) =>{
 //?GET
 const listarCursos = async ()=>{
     try {
-        const cursos = await Cursos.find({estado:true})
+        const cursos = await Cursos
+            .find({estado:true})
+            .populate("autor", "nombre -_id"); // Populate, se usa para mostrar los datos de un campo (autor [_id]), y mostramos el nombre y ocultamos el id (-)
+    
         return cursos;
     } catch (e) {
         throw e;
